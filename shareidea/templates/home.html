@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShareIdea</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}?v=10">
+</head>
+
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="logo">
+    <span class="logo-text">Share💡dea</span>
+  </div>
+
+  <div class="search-wrapper">
+    <div class="search-box-pro">
+      <input type="text" placeholder="Search ShareIdea...">
+      <i class="fas fa-microphone mic"></i>
+      <button class="send-btn"><i class="fas fa-arrow-up"></i></button>
+    </div>
+  </div>
+
+  <div class="top-actions">
+    <i class="fas fa-bell"></i>
+    <i class="fas fa-user-circle" onclick="openProfile()"></i>
+    <button class="dark-btn">🌙</button>
+  </div>
+</div>
+
+<!-- 👤 PROFILE PANEL (FIXED) -->
+<div id="profilePanel" class="profile-panel">
+  <div class="profile-card glass">
+
+    <span class="close-btn" onclick="closeProfile()">×</span>
+
+    <div class="profile-top">
+      <img id="profileImg" src="https://api.dicebear.com/7.x/initials/svg?seed=User">
+      <h3 id="profileName"></h3>
+      <p id="profileEmail"></p>
+
+      <div id="premiumBadge" class="premium-badge">👑 PREMIUM</div>
+    </div>
+
+    
+
+    <form action="/update-profile" method="POST">
+      <input type="text" name="username" id="editName">
+      <input type="email" name="email" id="editEmail">
+      <button type="submit">Save Changes</button>
+    </form>
+
+    <a href="/logout" class="logout-btn">Logout</a>
+
+  </div>
+</div>
+
+<!-- TAG FILTER -->
+<div class="tags">
+  <button class="tag active" data-category="All">✨ All</button>
+  <button class="tag" data-category="Discovery">🚀 Discovery</button>
+  <button class="tag" data-category="Idea">💡 Idea</button>
+  <button class="tag" data-category="Future">🔮 Future</button>
+  <button class="tag" data-category="Golden Rule">👑 Golden Rule</button>
+</div>
+
+<div class="main">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+  <div class="nav-item" onclick="window.location.href='/'">
+    <i class="fas fa-home"></i>
+    <span>Home</span>
+  </div>
+
+  <div class="nav-item" onclick="window.location.href='/payment'">
+    <i class="fas fa-credit-card"></i>
+    <span>Payment</span>
+  </div>
+
+  <div class="nav-item" onclick="openUpload()">
+    <i class="fas fa-upload"></i>
+    <span>Upload</span>
+  </div>
+
+  <div class="nav-item" onclick="window.location.href='/ideas'">
+    <i class="fas fa-lightbulb"></i>
+    <span>Ideas</span>
+  </div>
+  
+  <div class="nav-item" onclick="window.location.href='/settings'">
+  <i class="fas fa-cog"></i>
+  <span>Settings</span>
+</div>
+
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+{% for idea in ideas %}
+<div class="card" data-category="{{ idea[5] }}">
+
+<div class="user-info">
+  <img src="https://api.dicebear.com/7.x/initials/svg?seed={{ idea[1] }}" class="profile-icon">
+  <span>{{ idea[1] }}</span>
+</div>
+
+  <!-- IMAGE SECTION -->
+  <div class="card-img">
+
+    <!-- ✅ IMAGE -->
+    <img src="{{ idea[2] }}">
+
+    <!-- ✅ PRICE -->
+    <div class="price">₹{{ idea[3] }}</div>
+
+    <!-- ✅ DETAILS -->
+    <div class="overlay">
+      {{ idea[4] }}
+    </div>
+
+  </div>
+
+  <!-- ✅ CATEGORY -->
+  <h3>{{ idea[5] }}</h3>
+
+  <!-- ACTIONS -->
+  <div class="card-actions">
+
+    <!-- ❤️ LIKE -->
+    <a href="/like/{{ idea[0] }}" class="like-btn">❤️ {{ idea[6] }}</a>
+
+    <!-- 🛒 CART -->
+    <a href="/save/{{ idea[0] }}">🛒</a>
+
+    <!-- ❌ DELETE -->
+    <a href="/delete/{{ idea[0] }}">❌</a>
+
+  </div>
+
+</div>
+{% endfor %}
+</div>
+
+<!-- UPLOAD MODAL -->
+<div id="uploadModal" class="modal">
+  <div class="modal-content">
+
+    <span class="close-btn" onclick="closeUpload()">&times;</span>
+    <h2>Upload Idea</h2>
+
+    <form action="/upload" method="POST" enctype="multipart/form-data" onsubmit="return validateUpload()">
+
+      <div class="drop-area" id="dropArea">
+        <p>Drag & Drop Image</p>
+        <input type="file" name="file" id="fileInput" required>
+        <img id="preview" style="display:none;">
+      </div>
+
+      <div class="category-buttons">
+        <button type="button" onclick="selectCategory('Discovery', this)">Discovery</button>
+        <button type="button" onclick="selectCategory('Idea', this)">Idea</button>
+        <button type="button" onclick="selectCategory('Future', this)">Future</button>
+        <button type="button" onclick="selectCategory('Golden Rule', this)">Golden Rule</button>
+      </div>
+
+      <input type="hidden" name="category" id="categoryInput">
+
+      <input type="number" name="amount" placeholder="Enter Amount ₹" required>
+      <textarea name="details" placeholder="Enter Details..." required></textarea>
+
+      <button type="submit">⬆ Upload</button>
+
+    </form>
+
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}?v=10"></script>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+body {
+  background: linear-gradient(135deg, #0f172a, #020617);
+  color: white;
+  font-family: Arial;
+  text-align: center;
+}
+
+.title {
+  margin-top: 40px;
+  font-size: 40px;
+}
+
+/* ===== PLANS LAYOUT ===== */
+.plans {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 60px;
+}
+
+/* ===== PLAN CARD ===== */
+.plan {
+  width: 320px;
+  padding: 30px;
+  border-radius: 25px;
+
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px);
+
+  transition: 0.3s;
+  position: relative;
+}
+
+.plan:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(99,102,241,0.6);
+}
+
+/* ===== PREMIUM GLOW ===== */
+.premium {
+  border: 2px solid #6366f1;
+}
+
+/* ===== LOCK ICON ===== */
+.lock {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+}
+
+/* ===== TEXT ===== */
+.plan h2 {
+  font-size: 28px;
+}
+
+.plan h1 {
+  font-size: 36px;
+  margin: 15px 0;
+}
+
+/* ===== LIST ===== */
+.plan ul {
+  list-style: none;
+  text-align: left;
+  margin: 20px 0;
+}
+
+.plan ul li {
+  margin: 10px 0;
+}
+
+/* ===== BUTTON ===== */
+.plan button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 15px;
+  background: #6366f1;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.plan button:hover {
+  transform: scale(1.1);
+}
+
+/* ACTIVE */
+.active {
+  background: green;
+}

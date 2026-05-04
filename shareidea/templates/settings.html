@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+/* ===== PAGE CENTER ===== */
+.settings-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px;
+}
+
+/* ===== MAIN CARD ===== */
+.settings-card {
+  width: 500px;
+  padding: 30px;
+  border-radius: 20px;
+
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+
+  animation: fadeSlide 0.4s ease;
+}
+
+/* ANIMATION */
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ===== TITLE ===== */
+.settings-card h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 28px;
+  color: #a78bfa;
+}
+
+/* ===== SECTION ===== */
+.section {
+  margin-bottom: 30px;
+}
+
+.section h3 {
+  margin-bottom: 10px;
+  color: #c4b5fd;
+}
+
+/* ===== INPUTS ===== */
+.settings-card input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+
+  background: rgba(255,255,255,0.08);
+  color: white;
+
+  outline: none;
+  transition: 0.25s;
+}
+
+/* FOCUS EFFECT */
+.settings-card input:focus {
+  border: 1px solid #a78bfa;
+  box-shadow: 0 0 12px rgba(167,139,250,0.6);
+  transform: scale(1.02);
+}
+
+/* ===== BUTTON ===== */
+.settings-card button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #6366f1;
+  color: white;
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.settings-card button:hover {
+  background: #818cf8;
+  transform: scale(1.05);
+}
+
+/* ===== PAYMENT BOX ===== */
+.payment-box {
+  padding: 15px;
+  border-radius: 15px;
+  margin-top: 10px;
+
+  background: rgba(0,0,0,0.3);
+}
+
+/* ===== SUCCESS BUTTON ===== */
+.success-btn {
+  background: #22c55e;
+}
+
+.success-btn:hover {
+  background: #16a34a;
+}
+
+/* ===== BACK BUTTON ===== */
+.back-btn {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  color: #ccc;
+  text-decoration: none;
+}
+
+.back-btn:hover {
+  color: white;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="settings-wrapper">
+
+<div class="settings-card">
+
+<h1>⚙ Settings</h1>
+
+<!-- PROFILE -->
+<div class="section">
+<h3>👤 Profile</h3>
+
+<form action="/update-profile" method="POST">
+<input type="text" name="username" value="{{ user[0] }}" placeholder="Username">
+<input type="email" name="email" value="{{ user[1] }}" placeholder="Email">
+<button>Update Profile</button>
+</form>
+</div>
+
+<!-- PASSWORD -->
+<div class="section">
+<h3>🔐 Change Password</h3>
+
+<form action="/change-password" method="POST">
+<input type="password" name="old" placeholder="Old Password">
+<input type="password" name="new" placeholder="New Password">
+<button>Change Password</button>
+</form>
+</div>
+
+<!-- PAYMENT -->
+<div class="section">
+<h3>💳 Payment Settings</h3>
+
+<div class="payment-box">
+<p>UPI ID: user@upi</p>
+<p>Default: UPI / Card</p>
+<button class="success-btn">Add Payment Method</button>
+</div>
+
+</div>
+
+<!-- PREMIUM -->
+<div class="section">
+<h3>👑 Premium</h3>
+
+{% if user[2] == 1 %}
+<p style="color: gold;">You are a Premium User</p>
+{% else %}
+<a href="/buy-premium">
+<button class="success-btn">Buy Premium</button>
+</a>
+{% endif %}
+
+</div>
+
+<a href="/" class="back-btn">⬅ Back to Home</a>
+
+</div>
+</div>
+
+</body>
+</html>

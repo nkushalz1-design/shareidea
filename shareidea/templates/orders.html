@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Orders</title>
+</head>
+<body>
+
+<h2>Your Orders</h2>
+
+{% for o in orders %}
+  <div style="margin:10px; padding:10px; border:1px solid #ccc;">
+    <p>Order ID: {{ o[0] }}</p>
+    <p>Amount: ₹{{ o[2] }}</p>
+    <p>Date: {{ o[3] }}</p>
+  </div>
+{% endfor %}
+
+<a href="/">⬅ Back</a>
+
+</body>
+</html>

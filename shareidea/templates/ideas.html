@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ideas Plans</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='ideas.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+
+<div class="container">
+
+  <h1>🚀 Unlock More Ideas</h1>
+  <p class="sub">Choose your plan and explore premium ideas</p>
+
+  <div class="plans">
+
+    <!-- FREE PLAN -->
+    <div class="plan free">
+      <h2>Free</h2>
+      <h3>₹0</h3>
+
+      <ul>
+        <li>✔ View Ideas</li>
+        <li>✔ Like Ideas</li>
+        <li>❌ Save Ideas</li>
+        <li>❌ Premium Content</li>
+      </ul>
+
+      <button class="btn-disabled">Current Plan</button>
+    </div>
+
+    <!-- PRO PLAN -->
+    <div class="plan pro">
+      <h2>Pro ⭐</h2>
+      <h3>₹99/month</h3>
+
+      <ul>
+        <li>✔ Unlimited Saves</li>
+        <li>✔ Premium Ideas</li>
+        <li>✔ Early Access</li>
+        <li>✔ No Ads</li>
+      </ul>
+
+      <button onclick="buyPlan()">Upgrade</button>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function buyPlan(){
+  alert("Redirecting to payment...");
+  window.location.href = "/payment";
+}
+</script>
+
+</body>
+</html>

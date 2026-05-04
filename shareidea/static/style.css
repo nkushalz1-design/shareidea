@@ -1,0 +1,206 @@
+/* GLOBAL */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #0f0f0f;
+  color: white;
+}
+/* DARK MODE */
+body.dark {
+  font-family: 'Segoe UI';
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  transition: 0.4s;
+}
+
+/* MAIN LAYOUT */
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* LEFT SIDE */
+.left {
+  flex: 1;
+  background: linear-gradient(135deg, #2d1b82, #6039f3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  overflow: hidden;
+
+  animation: gradientMove 6s infinite alternate, slideLeft 1s ease;
+}
+
+/* PARTICLE CANVAS */
+#logoCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* JOIN BOX */
+.join-box {
+  text-align: center;
+  padding: 25px 35px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(15px);
+
+  position: relative;
+  z-index: 1;
+
+  transition: 0.4s;
+  animation: moveLR 4s ease-in-out infinite, glowPulse 2s infinite;
+}
+
+.join-box h1 {
+  font-size: 38px;
+  margin: 10px 0;
+}
+
+.join-box p {
+  opacity: 0.9;
+}
+
+/* HOVER EFFECT */
+.join-box:hover {
+  transform: scale(1.08);
+  animation-play-state: paused;
+  background: linear-gradient(135deg, #2d1b82, #6039f3);
+  box-shadow: 0 0 25px rgba(45, 27, 130, 0.6);
+  cursor: pointer;
+}
+
+/* RIGHT SIDE */
+.right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* FORM BOX */
+.form-box {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  padding: 40px;
+  border-radius: 20px;
+  width: 320px;
+  animation: fadeUp 1s ease;
+}
+
+/* INPUT */
+input {
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+}
+
+/* BUTTON */
+button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #2d1b82, #6039f3);
+  border: none;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* LINKS */
+a {
+  color: #00d2ff;
+}
+
+/* ANIMATIONS */
+
+/* background gradient */
+@keyframes gradientMove {
+  0% {
+    background: linear-gradient(135deg, #2d1b82, #6039f3);
+  }
+  100% {
+    background: linear-gradient(135deg, #6039f3, #2d1b82);
+  }
+}
+
+/* slide from left */
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* form animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* join box left-right */
+@keyframes moveLR {
+  0%   { transform: translateX(-30px); }
+  50%  { transform: translateX(30px); }
+  100% { transform: translateX(-30px); }
+}
+
+/* glow effect */
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 10px rgba(45, 27, 130, 0.3); }
+  50% { box-shadow: 0 0 25px rgba(45, 27, 130, 0.8); }
+  100% { box-shadow: 0 0 10px rgba(45, 27, 130, 0.3); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .left,
+  .right {
+    height: 50vh;
+  }
+}
+.dark-btn {
+  border: none;
+  background: var(--card);
+  color: var(--text);
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.dark-btn:hover {
+  background: var(--primary);
+  color: white;
+  transform: scale(1.1);
+}
+

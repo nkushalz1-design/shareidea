@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+
+<div class="container">
+
+  <!-- LEFT SIDE -->
+  <div class="left">
+
+    <!-- CANVAS -->
+    <canvas id="logoCanvas"></canvas>
+
+    <!-- TEXT -->
+    <div class="text-block">
+      <h1>💡 𝙅σĩ𝗇𝘚ԩ𝑎𝚛еꮖ𝒹еคԩ</h1>
+         <p>Create & Share your ideas</p>
+            <p>Login to continue</p>
+    </div>
+  
+  <!-- RIGHT -->
+  <div class="right">
+    <div class="form-box">
+
+      <h2>Login</h2>
+
+      <form method="POST">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+
+        <button type="submit">Login</button>
+      </form>
+
+      <p>Don't have account? <a href="/signup">Signup</a></p>
+
+    </div>
+  </div>
+
+</div>
+
+<a href="/login/google">
+  <button>Login with Google</button>
+</a>
+
+<!-- ✅ SCRIPT MUST BE HERE -->
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
