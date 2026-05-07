@@ -358,6 +358,106 @@ def settings():
     }
 
     return render_template("settings.html", user=user_data)
+
+# ==============================
+# GET PROFILE API
+# ==============================
+@app.route("/get-profile")
+def get_profile():
+    if "user" not in session:
+        return jsonify({"error": "Not logged in"})
+
+    with sqlite3.connect("users.db") as conn:
+        c = conn.cursor()
+
+        c.execute("""
+            SELECT username, email, profile_pic
+            FROM users
+            WHERE email=?
+        """, (session["user"],))
+
+        user = c.fetchone()
+
+    if user:
+        return jsonify({
+            "username": user[0],
+            "email": user[1],
+            "profile_pic": user[2]
+        })
+
+    return jsonify({"error": "User not found"})
+
+
+# ==============================
+# ALL USERS API
+# ==============================
+@app.route("/all-users")
+def all_users():
+    if "user" not in session:
+        return jsonify([])
+
+    with sqlite3.connect("users.db") as conn:
+        c = conn.cursor()
+
+        c.execute("""
+            SELECT username, email, profile_pic
+            FROM users
+        """)
+
+        users = c.fetchall()
+
+    users_list = []
+
+    for u in users:
+        users_list.append({
+            "username": u[0],
+            "email": u[1],
+            "profile_pic": u[2]
+        })
+
+    return jsonify(users_list)
+
+
+# ==============================
+# DELETE IDEA
+# ==============================
+@app.route("/delete/<int:id>")
+def delete(id):
+    if "user" not in session:
+        return redirect("/login")
+
+    with sqlite3.connect("users.db") as conn:
+        c = conn.cursor()
+
+        c.execute("""
+            DELETE FROM ideas
+            WHERE id=? AND username=?
+        """, (id, session["user"]))
+
+    return redirect(request.referrer or "/")
+
+
+# ==============================
+# ORDERS PAGE
+# ==============================
+@app.route("/orders")
+def orders():
+    if "user" not in session:
+        return redirect("/login")
+
+    with sqlite3.connect("users.db") as conn:
+        c = conn.cursor()
+
+        c.execute("""
+            SELECT * FROM orders
+            WHERE username=?
+            ORDER BY id DESC
+        """, (session["user"],))
+
+        orders_data = c.fetchall()
+
+    return render_template("orders.html", orders=orders_data)
+
 # ==============================
 # SUCCESS
 # ==============================
