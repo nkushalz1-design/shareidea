@@ -6,28 +6,25 @@
 
 <!-- TAGS -->
 <div class="tags">
-    <div class="tag">Discovery</div>
-    <div class="tag">Idea</div>
-    <div class="tag">Future</div>
-    <div class="tag">Golden Rule</div>
+    <div class="tag">✨ All</div>
+    <div class="tag">🚀 Discovery</div>
+    <div class="tag">💡 Idea</div>
+    <div class="tag">🔮 Future</div>
+    <div class="tag">👑 Golden Rule</div>
 </div>
-
-<!-- RESULT -->
-<div id="result"></div>
 
 <style>
 body{
     background:#0f172a;
     font-family:Arial, sans-serif;
     color:white;
-    padding:40px;
 }
 
 /* SEARCH BOX */
 .search-container{
-    width:800px;
-    max-width:100%;
-    margin:auto;
+    width:750px;
+    max-width:95%;
+    margin:20px auto;
     display:flex;
     align-items:center;
     background:#1e293b;
@@ -65,14 +62,17 @@ body{
 
 .search-container button:hover{
     transform:scale(1.08);
+    background:#7c82ff;
 }
 
 /* TAGS */
 .tags{
     display:flex;
     gap:15px;
-    margin-top:30px;
+    margin:25px auto;
+    width:95%;
     flex-wrap:wrap;
+    justify-content:center;
 }
 
 .tag{
@@ -81,47 +81,68 @@ body{
     border:1px solid rgba(255,255,255,0.1);
     border-radius:40px;
     transition:0.3s;
+    cursor:pointer;
 }
 
 .tag:hover{
     background:#334155;
+    transform:translateY(-2px);
 }
 
-/* RESULT */
-#result{
-    margin-top:30px;
-    font-size:22px;
-    font-weight:bold;
+/* IDEA CARDS */
+.card{
+    transition:0.3s;
 }
 </style>
 
 <script>
-const allowedWords = [
-    "discovery",
-    "idea",
-    "future",
-    "golden rule"
-];
-
+// SEARCH FUNCTION
 const searchInput = document.getElementById("searchInput");
 const searchBtn = document.getElementById("searchBtn");
-const result = document.getElementById("result");
 
 function searchIdea(){
+
     let value = searchInput.value.toLowerCase().trim();
 
-    if(allowedWords.includes(value)){
-        result.innerHTML = "✅ Found: " + value;
-    }else{
-        result.innerHTML = "❌ Only Discovery, Idea, Future and Golden Rule allowed";
-    }
+    // SELECT ALL IDEA CARDS
+    let cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+
+        let text = card.innerText.toLowerCase();
+
+        if(text.includes(value)){
+            card.style.display = "block";
+        }else{
+            card.style.display = "none";
+        }
+
+    });
 }
 
+// BUTTON CLICK
 searchBtn.addEventListener("click", searchIdea);
 
-searchInput.addEventListener("keypress", function(e){
-    if(e.key === "Enter"){
+// LIVE SEARCH
+searchInput.addEventListener("keyup", searchIdea);
+
+// TAG SEARCH
+document.querySelectorAll(".tag").forEach(tag => {
+
+    tag.addEventListener("click", () => {
+
+        let value = tag.innerText.toLowerCase()
+            .replace("✨","")
+            .replace("🚀","")
+            .replace("💡","")
+            .replace("🔮","")
+            .replace("👑","")
+            .trim();
+
+        searchInput.value = value === "all" ? "" : value;
+
         searchIdea();
-    }
+    });
+
 });
 </script>
